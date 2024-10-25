@@ -331,7 +331,7 @@ class Parser
      */
     private function isValuePathIncoming()
     {
-        $tokenAfterAttributePath = $this->lexer->peekWhileTokens([Tokens::T_NAME, Tokens::T_DOT]);
+        $tokenAfterAttributePath = $this->lexer->peekWhileTokens([Tokens::T_NAME, Tokens::T_COLON, Tokens::T_NUMBER, Tokens::T_DOT]);
         $this->lexer->resetPeek();
 
         return $tokenAfterAttributePath ? $tokenAfterAttributePath->is(Tokens::T_BRACKET_OPEN) : false;

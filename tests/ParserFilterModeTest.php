@@ -32,6 +32,15 @@ class ParserFilterModeTest extends TestCase
                 'urn:ietf:params:scim:schemas:core:2.0:User:userName sw "J"',
                 ['ComparisonExpression' => 'urn:ietf:params:scim:schemas:core:2.0:User : userName sw J'],
             ],
+            [
+                'urn:ietf:params:scim:schemas:core:2.0:User:roles[primary eq "True"]',
+                [
+                    'ValuePath' => [
+                        ['AttributePath' => 'urn:ietf:params:scim:schemas:core:2.0:User : roles'],
+                        ['ComparisonExpression' => 'primary eq 1'],
+                    ],
+                ],
+            ],
 
             [
                 'title pr',
