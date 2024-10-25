@@ -297,6 +297,15 @@ class Parser
         $this->match($this->lexer->getLookahead()->getName());
 
         $value = json_decode($this->lexer->getToken()->getValue());
+
+        if (!strcasecmp($value, 'true')) {
+            return true;
+        }
+
+        if (!strcasecmp($value, 'false')) {
+            return false;
+        }
+
         if (preg_match(
                 '/^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)(?:\\.\\d+)?Z$/D',
                 $value,
