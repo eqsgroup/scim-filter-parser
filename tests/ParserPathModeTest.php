@@ -2,14 +2,16 @@
 
 namespace Tests\Tmilos\ScimFilterParser;
 
+use PHPUnit\Framework\Attributes\TestWith;
+use PHPUnit\Framework\TestCase;
 use Tmilos\ScimFilterParser\Ast\Path;
 use Tmilos\ScimFilterParser\Error\FilterException;
 use Tmilos\ScimFilterParser\Mode;
 use Tmilos\ScimFilterParser\Parser;
 
-class ParserPathModeTest extends \PHPUnit_Framework_TestCase
+class ParserPathModeTest extends TestCase
 {
-    public function valid_path_provider()
+    public static function valid_path_provider()
     {
         return [
             [
@@ -44,7 +46,7 @@ class ParserPathModeTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'members[value eq "2819c223-7f76-453a-919d-413861904646"].displayName',
-                'Path' => [
+                [
                     'ValuePath' => [
                         ['AttributePath' => 'members'],
                         ['ComparisonExpression' => 'value eq 2819c223-7f76-453a-919d-413861904646']
@@ -54,7 +56,7 @@ class ParserPathModeTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'foo.bar.baz[value eq "2819c223-7f76-453a-919d-413861904646"].displayName',
-                'Path' => [
+                [
                     'ValuePath' => [
                         ['AttributePath' => 'foo.bar.baz'],
                         ['ComparisonExpression' => 'value eq 2819c223-7f76-453a-919d-413861904646']

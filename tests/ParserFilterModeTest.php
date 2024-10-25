@@ -2,14 +2,15 @@
 
 namespace Tests\Tmilos\ScimFilterParser;
 
+use PHPUnit\Framework\TestCase;
 use Tmilos\ScimFilterParser\Error\FilterException;
 use Tmilos\ScimFilterParser\Mode;
 use Tmilos\ScimFilterParser\Parser;
 use Tmilos\ScimFilterParser\Version;
 
-class ParserFilterModeTest extends \PHPUnit_Framework_TestCase
+class ParserFilterModeTest extends TestCase
 {
-    public function parser_provider_v2()
+    public static function parser_provider_v2()
     {
         return [
             [
@@ -248,7 +249,7 @@ class ParserFilterModeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDump, $node->dump(), sprintf("\n\n%s\n%s\n\n", $filterString, json_encode($node->dump(), JSON_PRETTY_PRINT)));
     }
 
-    public function error_provider_v2()
+    public static function error_provider_v2()
     {
         return [
             ['none a valid filter', "[Syntax Error] line 0, col 5: Error: Expected comparision operator, got 'a'"],
@@ -271,25 +272,19 @@ class ParserFilterModeTest extends \PHPUnit_Framework_TestCase
         $parser->parse($filterString);
     }
 
-    /**
-     * @expectedException \Tmilos\ScimFilterParser\Error\FilterException
-     * @expectedExceptionMessage [Syntax Error] line 0, col 6: Error: Expected SP, got '['
-     */
     public function test_v1_no_value_path()
     {
-        $parser = $this->getParser(Version::V1());
-        $parser->parse('emails[type eq "work"]');
+        $this->expectException(FilterException::class);
+        $this->expectExceptionMessage("[Syntax Error] line 0, col 6: Error: Expected SP, got '['");
+        $this->getParser(Version::V1())->parse('emails[type eq "work"]');
     }
 
-    /**
-     * @expectedException \Tmilos\ScimFilterParser\Error\FilterException
-     * @expectedExceptionMessage [Syntax Error] line 0, col 25: Error: Expected end of input, got '.'
-     */
     public function test_throws_error_for_value_path_with_attribute_path_in_filter_mode()
     {
-        $parser = $this->getParser();
-        $node = $parser->parse('addresses[type eq "work"].streetAddress co "main"');
-        var_dump($node->dump());
+        $this->expectException(FilterException::class);
+        $this->expectExceptionMessage("[Syntax Error] line 0, col 25: Error: Expected end of input, got '.'");
+
+        $this->getParser()->parse('addresses[type eq "work"].streetAddress co "main"');
     }
 
     /**
