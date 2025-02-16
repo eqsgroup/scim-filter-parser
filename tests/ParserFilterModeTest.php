@@ -2,6 +2,7 @@
 
 namespace Tests\Tmilos\ScimFilterParser;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Tmilos\ScimFilterParser\Error\FilterException;
 use Tmilos\ScimFilterParser\Mode;
@@ -248,9 +249,7 @@ class ParserFilterModeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider parser_provider_v2
-     */
+    #[DataProvider('parser_provider_v2')]
     public function test_parser_v2($filterString, array $expectedDump)
     {
         $parser = $this->getParser();
@@ -270,9 +269,7 @@ class ParserFilterModeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider error_provider_v2
-     */
+    #[DataProvider('error_provider_v2')]
     public function test_error_v2($filterString, $expectedMessage, $expectedException = FilterException::class)
     {
         $this->expectException($expectedException);

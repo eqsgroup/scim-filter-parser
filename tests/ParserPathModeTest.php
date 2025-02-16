@@ -2,6 +2,7 @@
 
 namespace Tests\Tmilos\ScimFilterParser;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Tmilos\ScimFilterParser\Ast\Path;
@@ -67,9 +68,7 @@ class ParserPathModeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider valid_path_provider
-     */
+    #[DataProvider('valid_path_provider')]
     public function test_valid_path($pathString, array $expectedDump)
     {
         $parser = $this->getParser();
@@ -96,9 +95,7 @@ class ParserPathModeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalid_path_provider
-     */
+    #[DataProvider('invalid_path_provider')]
     public function test_invalid_path($pathString, $expectedMessage, $expectedException = FilterException::class)
     {
         $this->expectException($expectedException);
