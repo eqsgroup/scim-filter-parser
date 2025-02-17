@@ -298,7 +298,7 @@ class ParserFilterModeTest extends TestCase
      *
      * @return Parser
      */
-    private function getParser(Version $version = null)
+    private function getParser(?Version $version = null)
     {
         $version = $version ?: Version::V2();
 

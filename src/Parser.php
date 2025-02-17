@@ -30,11 +30,7 @@ class Parser
     /** @var bool */
     private $inValuePath;
 
-    /**
-     * @param Mode    $mode
-     * @param Version $version
-     */
-    public function __construct(Mode $mode = null, Version $version = null)
+    public function __construct(?Mode $mode = null, ?Version $version = null)
     {
         $this->lexer = new Lexer(new LexerArrayConfig(LexerConfigFactory::getConfig()));
         $this->version = $version ?: Version::V2();
@@ -380,7 +376,7 @@ class Parser
         }
     }
 
-    private function syntaxError($expected = '', Token $token = null)
+    private function syntaxError($expected = '', ?Token $token = null)
     {
         if (null === $token) {
             $token = $this->lexer->getLookahead();

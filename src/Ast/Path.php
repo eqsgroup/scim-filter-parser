@@ -35,16 +35,12 @@ class Path extends Node
      *
      * @return Path
      */
-    public static function fromValuePath(ValuePath $valuePath, AttributePath $attributePath = null)
+    public static function fromValuePath(ValuePath $valuePath, ?AttributePath $attributePath = null)
     {
         return new static($attributePath, $valuePath);
     }
 
-    /**
-     * @param AttributePath $attributePath
-     * @param ValuePath     $valuePath
-     */
-    private function __construct(AttributePath $attributePath = null, ValuePath $valuePath = null)
+    private function __construct(?AttributePath $attributePath = null, ?ValuePath $valuePath = null)
     {
         $this->attributePath = $attributePath;
         $this->valuePath = $valuePath;
